@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | Crypto Recovery Hub</title>
+
+<link rel="stylesheet" href="admin.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ===================================== -->
+<!-- TOAST -->
+<!-- ===================================== -->
+
+<div id="toast" class="toast"></div>
+
+<!-- ===================================== -->
+<!-- LOADER -->
+<!-- ===================================== -->
+
+<div id="loader" class="loader">
+
+<div class="spinner"></div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- MOBILE OVERLAY -->
+<!-- ===================================== -->
+
+<div id="overlay" class="overlay"></div>
+
+<!-- ===================================== -->
+<!-- SIDEBAR -->
+<!-- ===================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+<div class="sidebar-top">
+
+<div class="brand">
+
+<img src="https://cdn-icons-png.flaticon.com/512/6001/6001366.png" alt="Logo">
+
+<div>
+
+<h2>Crypto Recovery Hub</h2>
+
+<p>Admin Panel</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="sidebar-menu">
+
+<a href="#" class="active">
+🏠 Dashboard
+</a>
+
+<a href="#usersSection">
+👥 Users
+</a>
+
+<a href="#casesSection">
+📁 Cases
+</a>
+
+<a href="#transactionsSection">
+💳 Transactions
+</a>
+
+<a href="#messagesSection">
+💬 Messages
+</a>
+
+<a href="#notificationsSection">
+🔔 Notifications
+</a>
+
+<a href="#" id="logoutBtn">
+🚪 Logout
+</a>
+
+</div>
+
+</aside>
+
+<!-- ===================================== -->
+<!-- MAIN CONTENT -->
+<!-- ===================================== -->
+
+<div class="main-content">
+
+<!-- ===================================== -->
+<!-- TOPBAR -->
+<!-- ===================================== -->
+
+<header class="topbar">
+
+<div class="left-header">
+
+<button id="menuBtn">
+☰
+</button>
+
+<h2>
+Admin Dashboard
+</h2>
+
+</div>
+
+<div class="right-header">
+
+<div class="notification-badge">
+
+🔔
+
+<span id="notificationCount">
+0
+</span>
+
+</div>
+
+<div class="user-avatar">
+
+<span id="adminInitial">
+A
+</span>
+
+</div>
+
+</div>
+
+</header>
+
+<!-- ===================================== -->
+<!-- WELCOME -->
+<!-- ===================================== -->
+
+<section class="welcome-card">
+
+<h1 id="welcomeAdmin">
+
+Welcome Administrator
+
+</h1>
+
+<p>
+
+Manage users, cases, transactions, notifications and support requests.
+
+</p>
+
+</section>
+
+<!-- ===================================== -->
+<!-- DASHBOARD CARDS -->
+<!-- ===================================== -->
+
+<section class="summary-grid">
+
+<div class="summary-card">
+
+<h4>Total Users</h4>
+
+<h2 id="totalUsers">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>Total Cases</h4>
+
+<h2 id="totalCases">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>Pending Cases</h4>
+
+<h2 id="pendingCases">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>Recovered Cases</h4>
+
+<h2 id="recoveredCases">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>Total Transactions</h4>
+
+<h2 id="totalTransactions">
+0
+</h2>
+
+</div>
+
+<div class="summary-card">
+
+<h4>Unread Messages</h4>
+
+<h2 id="unreadMessages">
+0
+</h2>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- QUICK ACTIONS -->
+<!-- ===================================== -->
+
+<section class="quick-actions">
+
+<button id="broadcastBtn" class="action-btn">
+📢 Broadcast Notification
+</button>
+
+<button id="newTransactionBtn" class="action-btn">
+💳 Add Transaction
+</button>
+
+<button id="refreshBtn" class="action-btn">
+🔄 Refresh Data
+</button>
+
+</section>
+
+<!-- ===================================== -->
+<!-- USERS SECTION -->
+<!-- ===================================== -->
+
+<section
+id="usersSection"
+class="dashboard-section">
+
+<div class="section-header">
+
+<h2>
+Users Management
+</h2>
+
+<input
+type="text"
+id="userSearch"
+placeholder="Search user by name or email">
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Wallet</th>
+
+<th>Balance</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="usersTableBody">
+
+<tr>
+
+<td colspan="5">
+No Users Found
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- CASES SECTION -->
+<!-- ===================================== -->
+
+<section
+id="casesSection"
+class="dashboard-section">
+
+<div class="section-header">
+
+<h2>
+Cases Management
+</h2>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Case ID</th>
+
+<th>User</th>
+
+<th>Title</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="casesTableBody">
+
+<tr>
+
+<td colspan="6">
+No Cases Found
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- TRANSACTIONS -->
+<!-- ===================================== -->
+
+<section
+id="transactionsSection"
+class="dashboard-section">
+
+<div class="section-header">
+
+<h2>
+Transactions
+</h2>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>User</th>
+
+<th>Description</th>
+
+<th>Amount</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="transactionsTableBody">
+
+<tr>
+
+<td colspan="5">
+No Transactions Found
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- MESSAGES -->
+<!-- ===================================== -->
+
+<section
+id="messagesSection"
+class="dashboard-section">
+
+<div class="section-header">
+
+<h2>
+Messages
+</h2>
+
+</div>
+
+<div id="messagesContainer">
+
+<div class="message-empty">
+
+No Messages Available
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- NOTIFICATIONS -->
+<!-- ===================================== -->
+
+<section
+id="notificationsSection"
+class="dashboard-section">
+
+<div class="section-header">
+
+<h2>
+Notifications
+</h2>
+
+</div>
+
+<div id="notificationsContainer">
+
+<div class="notification-item">
+
+No Notifications Available
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- ===================================== -->
+<!-- USER MODAL -->
+<!-- ===================================== -->
+
+<div
+id="userModal"
+class="modal">
+
+<div class="modal-content large-modal">
+
+<h2>
+User Information
+</h2>
+
+<div id="userModalContent">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- CASE MODAL -->
+<!-- ===================================== -->
+
+<div
+id="caseModal"
+class="modal">
+
+<div class="modal-content large-modal">
+
+<h2>
+Case Details
+</h2>
+
+<div id="caseModalContent">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- TRANSACTION MODAL -->
+<!-- ===================================== -->
+
+<div
+id="transactionModal"
+class="modal">
+
+<div class="modal-content">
+
+<h2>
+Create Transaction
+</h2>
+
+<select id="transactionUser">
+
+<option value="">
+Select User
+</option>
+
+</select>
+
+<input
+type="text"
+id="transactionDescription"
+placeholder="Transaction Description">
+
+<input
+type="number"
+id="transactionAmount"
+placeholder="Amount">
+
+<select id="transactionStatus">
+
+<option value="Pending">
+Pending
+</option>
+
+<option value="Completed">
+Completed
+</option>
+
+<option value="Rejected">
+Rejected
+</option>
+
+</select>
+
+<button
+id="saveTransactionBtn"
+class="action-btn">
+
+Save Transaction
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- REPLY MODAL -->
+<!-- ===================================== -->
+
+<div
+id="replyModal"
+class="modal">
+
+<div class="modal-content">
+
+<h2>
+Reply To User
+</h2>
+
+<input
+type="hidden"
+id="replyUserId">
+
+<textarea
+id="replyMessage"
+placeholder="Write your reply">
+</textarea>
+
+<button
+id="sendReplyBtn"
+class="action-btn">
+
+Send Reply
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- BROADCAST MODAL -->
+<!-- ===================================== -->
+
+<div
+id="broadcastModal"
+class="modal">
+
+<div class="modal-content">
+
+<h2>
+Broadcast Notification
+</h2>
+
+<input
+type="text"
+id="broadcastTitle"
+placeholder="Notification Title">
+
+<textarea
+id="broadcastMessage"
+placeholder="Notification Message">
+</textarea>
+
+<button
+id="sendBroadcastBtn"
+class="action-btn">
+
+Send Notification
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- JS -->
+<!-- ===================================== -->
+
+<script src="admin.js"></script>
+
+<script
+type="module"
+src="admin-firebase.js">
+</script>
+
+</body>
+</html>
